@@ -1,0 +1,69 @@
+@startuml
+class calculator.LogCalculateFactory {
+~ Logger logger
++ Calculate create(ComplexNumber)
+}
+class calculator.LogCalculator {
+~ Calculator calculator
+~ Logger logger
++ void sum(ComplexNumber)
++ void multiply(ComplexNumber)
++ void subtract(ComplexNumber)
++ void divide(ComplexNumber)
++ ComplexNumber result()
+}
+class calculator.Main {
++ {static} void main(String[])
+}
+class calculator.FileLogger {
+~ String fileName
+~ DateTimeFormatter fileNameDate
++ void log(String)
+}
+class calculator.ComplexNumber {
+- int a
+- int b
++ int getA()
++ int getB()
++ void setA(int)
++ void setB(int)
++ String toString()
+}
+class calculator.CalculateFactory {
++ Calculate create(ComplexNumber)
+}
+interface calculator.Calculate {
+~ void sum(ComplexNumber)
+~ void multiply(ComplexNumber)
+~ void subtract(ComplexNumber)
+~ void divide(ComplexNumber)
+~ ComplexNumber result()
+}
+interface calculator.Logger {
+~ void log(String)
+}
+interface calculator.ICalculateFactory {
+~ Calculate create(ComplexNumber)
+}
+class calculator.Calculator {
+- ComplexNumber complexNumber
++ void sum(ComplexNumber)
++ void multiply(ComplexNumber)
++ void subtract(ComplexNumber)
++ void divide(ComplexNumber)
++ ComplexNumber result()
+}
+class calculator.ConsoleView {
+- Scanner scanner
+- ICalculateFactory iCalculateFactory
++ void run()
+- ComplexNumber getArgument()
+}
+
+
+calculator.ICalculateFactory <|.. calculator.LogCalculateFactory
+calculator.Calculate <|.. calculator.LogCalculator
+calculator.Logger <|.. calculator.FileLogger
+calculator.ICalculateFactory <|.. calculator.CalculateFactory
+calculator.Calculate <|.. calculator.Calculator
+@enduml
